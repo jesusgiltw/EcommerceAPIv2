@@ -25,29 +25,15 @@ jobs:
       with:
         dotnet-version: '9.0'
 
-    - name: Restore Shared Dependencies
+    - name: Restore projects
       run: |
-        dotnet restore Ecommerce.Shared.Domain
-        dotnet restore Ecommerce.Shared.Infrastructure
-        dotnet restore Ecommerce.Shared.Application
+        dotnet restore EcommerceAPI
+        dotnet restore TestEcommerce
 
-    - name: Restore API dependencies
+    - name: Build projects
       run: |
-        dotnet restore Ecommerce.API
-        dotnet restore Ecommerce.Services.Inventory
-        dotnet restore Ecommerce.Services.Orders
-
-    - name: Build Shared Components
-      run: |
-        dotnet build Ecommerce.Shared.Domain --configuration Release --no-restore
-        dotnet build Ecommerce.Shared.Infrastructure --configuration Release --no-restore
-        dotnet build Ecommerce.Shared.Application --configuration Release --no-restore
-
-    - name: Build API Components
-      run: |
-        dotnet build Ecommerce.API --configuration Release --no-restore
-        dotnet build Ecommerce.Services.Inventory --configuration Release --no-restore
-        dotnet build Ecommerce.Services.Orders --configuration Release --no-restore
+        dotnet build EcommerceAPI --configuration Release --no-restore
+        dotnet build TestEcommerce --configuration Release --no-restore
 
     - name: Run Tests
       run: |
