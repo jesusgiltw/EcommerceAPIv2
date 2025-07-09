@@ -21,4 +21,15 @@ public class ProductsController : ControllerBase
         var products = _service.GetAllProducts();
         return Ok(products);
     }
+
+    [HttpGet("{id}")]
+    public ActionResult<Products?> GetProductsById(string id)
+    {
+        var product = _service.GetProductsById(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        return Ok(product);
+    }
 }

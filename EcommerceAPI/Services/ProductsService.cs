@@ -16,4 +16,9 @@ public class ProductsService
     {
         return _repository.GetAllProducts();
     }
+
+    public Products? GetProductsById(string id)
+    {
+        return _repository.GetProductsById(id);
+    }
 }
