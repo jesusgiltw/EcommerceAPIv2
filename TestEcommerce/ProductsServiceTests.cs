@@ -4,7 +4,7 @@ using EcommerceAPI.Services;
 using Moq;
 using Xunit;
 
-namespace EcommerceAPI.Tests;
+namespace TestEcommerce;
 
 public class ProductsServiceTests
 {
