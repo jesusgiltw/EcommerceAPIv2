@@ -1,1 +1,88 @@
 olist.sqlite
+## Build results
+**/bin/
+**/obj/
+out/
+[Ll]og/
+TestResults/
+*.dll
+*.exe
+*.app
+*.pdb
+*.cache
+*.db
+*.db-shm
+*.db-wal
+
+## Rider
+.idea/
+
+## VS Code
+.vscode/
+
+## Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+.vsconfig
+
+## ASP.NET Core
+wwwroot/**/*.gz
+wwwroot/**/*.br
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+*.nuspec
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Entity Framework
+Migrations/
+
+## Logs & diagnostic results
+*.log
+*.tlog
+*.wrn
+*.err
+
+## Local environment
+.env
+*.local.json
+*.secrets.json
+
+## Others
+.DS_Store
+Thumbs.db
+*.bak
+*.old
+*.tmp
+*.swp
+_ReSharper*/
+*.resharper
+*.sdf
+*.sqlite
+
+# dotCover
+*.dotCover
+
+# Docker
+**/docker-compose.override.yml
+**/.dockerignore
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Node/NPM (if using frontend in the same repo)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+dist/
+build/
