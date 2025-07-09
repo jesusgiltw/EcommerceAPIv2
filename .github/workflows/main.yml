@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: ./EcommerceAPIv2  # Asegúrate de que este sea el directorio raíz correcto
+        working-directory: .
 
     steps:
     - uses: actions/checkout@v4
