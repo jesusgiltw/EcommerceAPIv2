@@ -38,10 +38,3 @@ jobs:
     - name: Run Tests
       run: |
         dotnet test TestEcommerce
-
-    - name: Upload test results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: TestEcommerce/TestResults/*.trx
