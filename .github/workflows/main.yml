@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Tests
       run: |
-        dotnet test EcommerceAPI.Tests/Ecommerce.Shared.ApplicationTests --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+        dotnet test
 
     - name: Upload test results
       if: always()
