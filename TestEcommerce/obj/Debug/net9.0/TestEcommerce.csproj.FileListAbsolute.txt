@@ -134,3 +134,4 @@
 /Users/jesus.gil/Trainings/EcommerceAPI/TestEcommerce/obj/Debug/net9.0/TestEcommerce.pdb
 /Users/jesus.gil/Trainings/EcommerceAPI/TestEcommerce/obj/Debug/net9.0/TestEcommerce.genruntimeconfig.cache
 /Users/jesus.gil/Trainings/EcommerceAPI/TestEcommerce/obj/Debug/net9.0/ref/TestEcommerce.dll
+/Users/jesus.gil/Trainings/EcommerceAPI/TestEcommerce/obj/Debug/net9.0/TestEcommerce.sourcelink.json

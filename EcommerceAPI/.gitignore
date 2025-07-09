@@ -1,1 +1,4 @@
 olist.sqlite
+# Build folders
+**/bin/
+**/obj/
