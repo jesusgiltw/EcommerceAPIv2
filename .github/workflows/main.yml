@@ -1,0 +1,61 @@
+name: CI Pipeline for EcommerceAPIv2
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Entorno para ejecutar'
+        required: true
+        default: 'main'
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: ./EcommerceAPIv2  # Asegúrate de que este sea el directorio raíz correcto
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0'
+
+    - name: Restore Shared Dependencies
+      run: |
+        dotnet restore Ecommerce.Shared.Domain
+        dotnet restore Ecommerce.Shared.Infrastructure
+        dotnet restore Ecommerce.Shared.Application
+
+    - name: Restore API dependencies
+      run: |
+        dotnet restore Ecommerce.API
+        dotnet restore Ecommerce.Services.Inventory
+        dotnet restore Ecommerce.Services.Orders
+
+    - name: Build Shared Components
+      run: |
+        dotnet build Ecommerce.Shared.Domain --configuration Release --no-restore
+        dotnet build Ecommerce.Shared.Infrastructure --configuration Release --no-restore
+        dotnet build Ecommerce.Shared.Application --configuration Release --no-restore
+
+    - name: Build API Components
+      run: |
+        dotnet build Ecommerce.API --configuration Release --no-restore
+        dotnet build Ecommerce.Services.Inventory --configuration Release --no-restore
+        dotnet build Ecommerce.Services.Orders --configuration Release --no-restore
+
+    - name: Run Tests
+      run: |
+        dotnet test EcommerceAPIv2.Tests/Ecommerce.Shared.ApplicationTests --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: EcommerceAPIv2.Tests/TestResults/*.trx
