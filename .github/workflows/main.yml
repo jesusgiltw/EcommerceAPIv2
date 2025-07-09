@@ -37,11 +37,11 @@ jobs:
 
     - name: Run Tests
       run: |
-        dotnet test EcommerceAPIv2.Tests/Ecommerce.Shared.ApplicationTests --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+        dotnet test EcommerceAPI.Tests/Ecommerce.Shared.ApplicationTests --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
 
     - name: Upload test results
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: test-results
-        path: EcommerceAPIv2.Tests/TestResults/*.trx
+        path: EcommerceAPI.Tests/TestResults/*.trx
