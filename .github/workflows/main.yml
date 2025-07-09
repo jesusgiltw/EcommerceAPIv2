@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Tests
       run: |
-        dotnet test
+        dotnet test TestEcommerce
 
     - name: Upload test results
       if: always()
