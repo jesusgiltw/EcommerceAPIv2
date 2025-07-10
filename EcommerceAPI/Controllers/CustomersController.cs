@@ -33,4 +33,11 @@ public class CustomersController : ControllerBase
         await _service.UpdateCustomerAsync(customer);
         return NoContent(); // Devuelve 204 No Content si la actualización fue exitosa
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<List<Customer>>> GetAllCustomers()
+    {
+        var customers = await _service.GetAllCustomersAsync();
+        return Ok(customers);
+    }
 }

@@ -60,7 +60,7 @@ public class CustomerRepository : ICustomerRepository
         return null;
     }
 
-    public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
+    public async Task<List<Customer>> GetAllCustomersAsync()
     {
         using var connection = _dbContext.GetConnection();
         connection.Open();

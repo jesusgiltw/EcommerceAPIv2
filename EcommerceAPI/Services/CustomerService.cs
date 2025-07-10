@@ -19,6 +19,11 @@ public class CustomerService
 
     public async Task UpdateCustomerAsync(Customer customer)
     {
-    await _repository.UpdateCustomerAsync(customer);
+        await _repository.UpdateCustomerAsync(customer);
+    }
+
+    public async Task<List<Customer>> GetAllCustomersAsync()
+    {
+        return await _repository.GetAllCustomersAsync();
     }
 }
