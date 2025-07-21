@@ -21,4 +21,18 @@ public class SellersController : ControllerBase
         var sellers = _sellersRepository.GetAllSellers();
         return Ok(sellers);
     }
+    [HttpGet("{id}")]
+    public ActionResult<Sellers?> GetSellersById(string id)
+    {
+        #region Validation
+        if (string.IsNullOrWhiteSpace(id))
+            return BadRequest("Seller ID is required.");
+        #endregion
+        var seller = _sellersRepository.GetSellersById(id);
+        if (seller == null)
+        {
+            return NotFound();
+        }
+        return Ok(seller);
+    }
 }

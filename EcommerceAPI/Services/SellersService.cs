@@ -16,4 +16,9 @@ public class SellersService
     {
         return _sellersRepository.GetAllSellers();
     }
+
+    public Sellers? GetSellersById(string id)
+    {
+        return _sellersRepository.GetSellersById(id);
+    }
 }

@@ -37,4 +37,27 @@ public class SellersRepository : ISellersRepository
 
         return sellers;
     }
+    public Sellers? GetSellersById(string id)
+    {
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT * FROM sellers WHERE seller_id = @SellerId";
+        command.Parameters.AddWithValue("@SellerId", id);
+
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            return new Sellers
+            {
+                SellerId = reader.GetString(0),
+                SellerZipCode = reader.GetInt32(1),
+                SellerCity = reader.IsDBNull(2) ? null : reader.GetString(2),
+                SellerState = reader.IsDBNull(3) ? null : reader.GetString(3)
+            };
+        }
+
+        return null;
+    }
 }

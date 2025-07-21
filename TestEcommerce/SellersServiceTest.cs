@@ -26,4 +26,29 @@ public class SellersServiceTest
         Assert.Equal(2, result.Count);
         Assert.Equal("1", result[0].SellerId);
     }
+    [Fact]
+    public void GetSellersById_ShouldReturnSeller_WhenSellerExists()
+    {
+        var mockRepository = new Mock<ISellersRepository>();
+        mockRepository.Setup(repo => repo.GetSellersById("1")).Returns(new Sellers { SellerId = "1", SellerZipCode = 12345, SellerCity = "City One", SellerState = "State One" });
+
+        var service = new SellersService(mockRepository.Object);
+
+        var result = service.GetSellersById("1");
+
+        Assert.NotNull(result);
+        Assert.Equal("1", result.SellerId);
+    }
+    [Fact]
+    public void GetSellersById_ShouldReturnNull_WhenSellerDoesNotExist()
+    {
+        var mockRepository = new Mock<ISellersRepository>();
+        mockRepository.Setup(repo => repo.GetSellersById("999")).Returns((Sellers?)null);
+
+        var service = new SellersService(mockRepository.Object);
+
+        var result = service.GetSellersById("999");
+
+        Assert.Null(result);
+    }
 }
