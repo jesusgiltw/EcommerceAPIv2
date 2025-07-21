@@ -25,6 +25,10 @@ public class ProductsController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Products?> GetProductsById(string id)
     {
+        #region Validation
+        if (string.IsNullOrWhiteSpace(id))
+            return BadRequest("Product ID is required.");
+        #endregion
         var product = _service.GetProductsById(id);
         if (product == null)
         {

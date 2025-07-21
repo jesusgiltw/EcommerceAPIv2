@@ -35,6 +35,9 @@ public class OrdersController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Order>> GetOrderById(string id)
     {
+        #region Validation
+        if (string.IsNullOrEmpty(id)) return BadRequest("Order ID cannot be null or empty.");
+        #endregion
         var order = _ordersService.GetOrderById(id);
         if (order == null)
         {
