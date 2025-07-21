@@ -33,11 +33,22 @@ public class CustomersController : ControllerBase
         await _service.UpdateCustomerAsync(customer);
         return NoContent(); // Devuelve 204 No Content si la actualización fue exitosa
     }
-    
+
     [HttpGet]
     public async Task<ActionResult<List<Customer>>> GetAllCustomers()
     {
         var customers = await _service.GetAllCustomersAsync();
         return Ok(customers);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Customer>> GetCustomerById(string id)
+    {
+        var customer = await _service.GetCustomerByIdAsync(id);
+        if (customer == null)
+        {
+            return NotFound(); // Devuelve 404 Not Found si el cliente no existe
+        }
+        return Ok(customer);
     }
 }

@@ -62,4 +62,35 @@ public class OrdersServiceTests
         Assert.NotNull(result);
         Assert.Equal(2, result.Count);
     }
+    [Fact]
+    public void GetOrdersBetweenPurchasedDates_ShouldReturnError_WhenInvalidDates()
+    {
+        var mockRepository = new Mock<IOrdersRepository>();
+        var service = new OrdersService(mockRepository.Object);
+        
+        var result = service.GetOrdersBetweenPurchasedDates(DateTime.Now, DateTime.Now.AddDays(-1));
+        
+        Assert.Null(result);
+    }
+    [Fact]
+    public void GetAllOrders_ShouldReturnCustomerDetails()
+    {
+        var mockRepository = new Mock<IOrdersRepository>();
+        var mockCustomerRepository = new Mock<ICustomerRepository>();
+
+        var customer = new Customer { CustomerId = "123", CustomerUniqueId = "unique-123", CustomerZipCodePrefix = 12345, CustomerCity = "City", CustomerState = "State" };
+        mockCustomerRepository.Setup(service => service.GetCustomerByIdAsync("123")).ReturnsAsync(customer);
+
+        mockRepository.Setup(repo => repo.GetAllOrders()).Returns(new List<Order>
+        {
+            new Order { OrderId = "1", CustomerId = "123", OrderStatus = "Invoiced", Customer = customer }
+        });
+
+        var service = new OrdersService(mockRepository.Object);
+        var result = service.GetAllOrders();
+
+        Assert.NotNull(result);
+        Assert.Single(result);
+        Assert.Equal("City", result[0].Customer.CustomerCity);
+    }
 }

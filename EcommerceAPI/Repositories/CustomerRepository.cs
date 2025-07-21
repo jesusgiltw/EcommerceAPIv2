@@ -110,7 +110,7 @@ public class CustomerRepository : ICustomerRepository
         await command.ExecuteNonQueryAsync();
     }
 
-    public async Task DeleteCustomerAsync(int customerId)
+    public async Task DeleteCustomerAsync(string customerId)
     {
         using var connection = _dbContext.GetConnection();
         connection.Open();
@@ -120,5 +120,37 @@ public class CustomerRepository : ICustomerRepository
         command.Parameters.AddWithValue("@CustomerId", customerId);
 
         await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task<Customer> GetCustomerByIdAsync(string id)
+    {
+        using var connection = _dbContext.GetConnection();
+        connection.Open();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "SELECT * FROM customers WHERE customer_id = @CustomerId";
+        command.Parameters.AddWithValue("@CustomerId", id);
+
+        using var reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+        {
+            return new Customer
+            {
+                CustomerId = reader.GetString(0),
+                CustomerUniqueId = reader.GetString(1),
+                CustomerZipCodePrefix = reader.GetInt32(2),
+                CustomerCity = reader.GetString(3),
+                CustomerState = reader.GetString(4)
+            };
+        }
+
+        return new Customer
+        {
+            CustomerId = string.Empty,
+            CustomerUniqueId = string.Empty,
+            CustomerZipCodePrefix = 0,
+            CustomerCity = string.Empty,
+            CustomerState = string.Empty
+        };
     }
 }

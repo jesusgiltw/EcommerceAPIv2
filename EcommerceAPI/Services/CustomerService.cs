@@ -26,4 +26,9 @@ public class CustomerService
     {
         return await _repository.GetAllCustomersAsync();
     }
+
+    public async Task<Customer> GetCustomerByIdAsync(string id)
+    {
+        return await _repository.GetCustomerByIdAsync(id);
+    }
 }

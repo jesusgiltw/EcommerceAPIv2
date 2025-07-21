@@ -26,4 +26,24 @@ public class CustomersTest
         Assert.Equal(2, result.Count);
         Assert.Equal("1", result[0].CustomerId);
     }
+    [Fact]
+    public async Task GetCustomerById_ShouldReturnCustomer()
+    {
+        var mockRepository = new Mock<ICustomerRepository>();
+        mockRepository.Setup(repo => repo.GetCustomerByIdAsync("1")).ReturnsAsync(new Customer
+        {
+            CustomerId = "1",
+            CustomerCity = "New York",
+            CustomerState = "NY",
+            CustomerZipCodePrefix = 10001,
+            CustomerUniqueId = "unique1"
+        });
+
+        var service = new CustomerService(mockRepository.Object);
+
+        var result = await service.GetCustomerByIdAsync("1");
+
+        Assert.NotNull(result);
+        Assert.Equal("1", result.CustomerId);
+    }
 }
