@@ -1,4 +1,5 @@
 using EcommerceAPI.Entities;
+using EcommerceAPI.Interfaces;
 using EcommerceAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,13 @@ public class OrdersController : ControllerBase
 {
     private readonly OrdersService _ordersService;
     private readonly CustomerService _customerService;
+    private readonly IOrderItemsRepository _orderItemsRepository;
 
-    public OrdersController(OrdersService ordersService, CustomerService customerService)
+    public OrdersController(OrdersService ordersService, CustomerService customerService, IOrderItemsRepository orderItemsRepository)
     {
+        _orderItemsRepository = orderItemsRepository;
+        _customerService = customerService; 
         _ordersService = ordersService;
-        _customerService = customerService;
     }
 
     [HttpGet]
@@ -49,7 +52,18 @@ public class OrdersController : ControllerBase
             CustomerId = order.CustomerId,
             Customer = await _customerService.GetCustomerByIdAsync(order.CustomerId),
             OrderStatus = order.OrderStatus,
-            OrderPurchasedDate = order.OrderPurchasedDate
+            OrderPurchasedDate = order.OrderPurchasedDate,
+            OrderItems = _orderItemsRepository.GetOrderItemsByOrderId(order.OrderId)
+            .Select(item => new OrderItem 
+            {
+                OrderId = order.OrderId,
+                OrderItemId = item.OrderItemId,
+                ProductId = item.ProductId,
+                SellerId = item.SellerId,
+                ShippingLimitDate = item.ShippingLimitDate,
+                Price = item.Price,
+                FreightValue = item.FreightValue
+            }).ToList()
         };
         return Ok(result);
     }

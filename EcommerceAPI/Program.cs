@@ -19,11 +19,14 @@ builder.Services.AddScoped<ProductsService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<CustomerService>();
 
+
+builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped<OrdersService>();
 
 builder.Services.AddScoped<ISellersRepository, SellersRepository>();
 builder.Services.AddScoped<SellersService>();
+
 
 // Add services to the container
 builder.Services.AddOpenApi();
