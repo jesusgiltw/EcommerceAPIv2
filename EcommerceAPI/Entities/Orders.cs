@@ -16,6 +16,7 @@ public class OrderItem
     public required string OrderId { get; set; }
     public required string OrderItemId { get; set; }
     public required string ProductId { get; set; }
+    public Products? Products { get; set; }
     public required string SellerId { get; set; }
     public DateTime ShippingLimitDate { get; set; }
     public decimal Price { get; set; }
