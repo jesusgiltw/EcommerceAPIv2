@@ -18,6 +18,7 @@ public class OrderItem
     public required string ProductId { get; set; }
     public Products? Products { get; set; }
     public required string SellerId { get; set; }
+    public Sellers? Sellers { get; set; }
     public DateTime ShippingLimitDate { get; set; }
     public decimal Price { get; set; }
     public decimal FreightValue { get; set; }

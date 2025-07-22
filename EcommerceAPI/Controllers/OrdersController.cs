@@ -12,14 +12,16 @@ public class OrdersController : ControllerBase
     private readonly OrdersService _ordersService;
     private readonly CustomerService _customerService;
     private readonly ProductsService _productsService;
+    private readonly SellersService _sellersService;
     private readonly IOrderItemsRepository _orderItemsRepository;
 
-    public OrdersController(OrdersService ordersService, CustomerService customerService, IOrderItemsRepository orderItemsRepository, ProductsService productsService)
+    public OrdersController(OrdersService ordersService, CustomerService customerService, IOrderItemsRepository orderItemsRepository, ProductsService productsService, SellersService sellersService)
     {
         _orderItemsRepository = orderItemsRepository;
         _customerService = customerService;
         _ordersService = ordersService;
         _productsService = productsService;
+        _sellersService = sellersService;
     }
 
     [HttpGet]
@@ -61,8 +63,9 @@ public class OrdersController : ControllerBase
                 OrderId = order.OrderId,
                 OrderItemId = item.OrderItemId,
                 ProductId = item.ProductId,
-                Products =  _productsService.GetProductsById(item.ProductId) ?? new Products(),
+                Products =  _productsService.GetProductsById(item.ProductId),
                 SellerId = item.SellerId,
+                Sellers = _sellersService.GetSellersById(item.SellerId),
                 ShippingLimitDate = item.ShippingLimitDate,
                 Price = item.Price,
                 FreightValue = item.FreightValue
